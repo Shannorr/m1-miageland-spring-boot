@@ -8,6 +8,13 @@ TP de M1 en spring boot sur les parcs d'attractions
 docker run --name monsql -p 3306:3306 -e MYSQL_DATABASE=parcattraction -e MYSQL_ROOT_PASSWORD=root mysql:5.5.54
 ```
 
+### Initialiser phpmyadmin
+```
+docker pull phpmyadmin/phpmyadmin:latest
+
+docker run --name my-own-phpmyadmin -d --link monsql:db -p 8081:80 phpmyadmin/phpmyadmin
+```
+
 ### Plan de travail sur Git
 Voir la branche sur laquelle je suis :
 ```
@@ -35,3 +42,6 @@ Push des changements :
 ```
 git push
 ```
+
+### Bug a l'installation
+Une fois le git clone effectue, si le projet pas reconnu dans intellij, fermer intellij, supprimer le .idea et relancer intellij
