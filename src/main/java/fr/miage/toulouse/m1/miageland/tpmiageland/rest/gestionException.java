@@ -2,6 +2,7 @@ package fr.miage.toulouse.m1.miageland.tpmiageland.rest;
 
 import fr.miage.toulouse.m1.miageland.tpmiageland.export.ErrorExport;
 import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.ParcInexistant;
+import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.RoleInexistant;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,11 @@ public class gestionException {
      */
     @ExceptionHandler(ParcInexistant.class)
     public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, ParcInexistant exception) {
+        return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RoleInexistant.class)
+    public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, RoleInexistant exception) {
         return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
     }
 }
