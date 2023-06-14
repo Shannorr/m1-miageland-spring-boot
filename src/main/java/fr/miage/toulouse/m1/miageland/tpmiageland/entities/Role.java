@@ -11,18 +11,14 @@ import jakarta.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="role")
 public class Role {
     /*Id de l'entité*/
-    @Id@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     /*nom du role*/
     private String nomRole;
-
-    /*Méthode pour afficher l'opération
-     @return une représentation textuelle de l'opération*/
-    @Override
-    public String toString() {// attention aux cycles
-        return "Role{" +"id=" + id +", Nom du role=" + nomRole +'}';}
 
 }
