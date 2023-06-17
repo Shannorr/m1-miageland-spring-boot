@@ -23,7 +23,7 @@ public class Parc {
     private String nomP;
 
     /*jauge du parc*/
-    private Number jaugeP;
+    private Integer jaugeP;
 
     @OneToMany(mappedBy="parc")
     @JsonIgnoreProperties("parc")

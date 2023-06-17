@@ -76,7 +76,6 @@ public class ParcService {
     /**
      * Permet mettre une jauge à un parc
      * @param idParc id du parc
-     * @param jauge jauge à mettre au parc
      * @return infos du parc
      * @throws ParcInexistant s'il n'existe pas de parc avec cet id
      */
