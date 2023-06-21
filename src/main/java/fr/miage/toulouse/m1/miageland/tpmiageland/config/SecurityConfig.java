@@ -13,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
+import static org.springframework.http.HttpMethod.*;
+
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +33,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
-                .requestMatchers("/api/v1/demo-controller").hasAuthority("USER")
+
+                .requestMatchers("/api/v1/demo-controller").hasAnyAuthority("USER", "GERANT")
+
+                // Autoriser que par le gerant
+                .requestMatchers(POST, "/api/v1/employes").hasAuthority( "GERANT")
+                .requestMatchers(DELETE, "/api/v1/employes/**").hasAuthority( "GERANT")
+
                 .anyRequest()
                 .authenticated()
                 .and()

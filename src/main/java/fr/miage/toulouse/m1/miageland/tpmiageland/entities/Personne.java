@@ -43,6 +43,7 @@ public class Personne implements UserDetails {
      */
     @NotNull
     @Email
+    @Column(unique=true)
     private String adresseMail;
 
     @NotNull

@@ -1,6 +1,7 @@
 package fr.miage.toulouse.m1.miageland.tpmiageland.rest;
 
 import fr.miage.toulouse.m1.miageland.tpmiageland.export.ErrorExport;
+import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.AdresseMailUtilise;
 import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.ParcInexistant;
 import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.RoleInexistant;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,11 @@ public class gestionException {
 
     @ExceptionHandler(RoleInexistant.class)
     public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, RoleInexistant exception) {
+        return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AdresseMailUtilise.class)
+    public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, AdresseMailUtilise exception) {
         return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
     }
 }

@@ -1,5 +1,6 @@
 package fr.miage.toulouse.m1.miageland.tpmiageland.auth;
 
+import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +16,5 @@ public class RegisterRequest {
     private String nom;
     private String adresseMail;
     private String password;
-//    private Role role;
+    private Role role;
 }

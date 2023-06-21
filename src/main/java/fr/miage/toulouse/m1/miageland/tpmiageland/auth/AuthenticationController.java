@@ -22,27 +22,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.register(request));
     }
 
-    @PostMapping("/registerGerant")
-    public ResponseEntity<AuthenticationResponse> registerGerant(
-            @RequestBody RegisterRequest request
-    ) {
-        return ResponseEntity.ok(service.registerAll(request, Role.GERANT));
-    }
-
-    @PostMapping("/registerEmploye")
-    public ResponseEntity<AuthenticationResponse> registerEmploye(
-            @RequestBody RegisterRequest request
-    ) {
-        return ResponseEntity.ok(service.registerAll(request, Role.EMPLOYE));
-    }
-
-    @PostMapping("/registerVisiteur")
-    public ResponseEntity<AuthenticationResponse> registerVisiteur(
-            @RequestBody RegisterRequest request
-    ) {
-        return ResponseEntity.ok(service.registerAll(request, Role.VISITEUR));
-    }
-
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
