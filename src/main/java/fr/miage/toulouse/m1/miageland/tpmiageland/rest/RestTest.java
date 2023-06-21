@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("hello")
+@RequestMapping("/hello")
 public class RestTest {
-    @GetMapping("user")
+    @GetMapping("/user")
     public String helloUser() {
         return "Hello User";
     }
 
-    @GetMapping("admin")
+    @GetMapping("/admin")
     public String helloAdmin() {
         return "Hello Admin";
     }
