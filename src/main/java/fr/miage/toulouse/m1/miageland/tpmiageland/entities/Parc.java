@@ -1,5 +1,6 @@
 package fr.miage.toulouse.m1.miageland.tpmiageland.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,11 @@ public class Parc {
     /*nom du parc*/
     private String nomP;
 
+    /*jauge du parc*/
+    private Integer jaugeP;
+
     @OneToMany(mappedBy="parc")
+    @JsonIgnoreProperties("parc")
     public List<Attraction> attractions;
 
     @OneToMany(mappedBy="parc")

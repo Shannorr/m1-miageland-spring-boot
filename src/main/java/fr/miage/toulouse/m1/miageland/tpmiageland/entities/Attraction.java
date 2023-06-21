@@ -24,6 +24,6 @@ public class Attraction {
     private boolean estOuvert;
 
     @ManyToOne()
-    @JsonIgnoreProperties("parc")
+    @JsonIgnoreProperties("attractions")
     public Parc parc;
 }

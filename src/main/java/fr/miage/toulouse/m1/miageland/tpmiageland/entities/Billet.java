@@ -30,7 +30,7 @@ public class Billet {
     private boolean etat;
 
     @ManyToOne()
-    @JsonIgnoreProperties("parc")
+    @JsonIgnoreProperties("billets")
     public Parc parc;
 
 }
