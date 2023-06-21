@@ -33,4 +33,9 @@ public class Billet {
     @JsonIgnoreProperties("billets")
     public Parc parc;
 
+    @ManyToOne()
+    @JsonIgnoreProperties("billets")
+    public Personne personne;
+
+
 }

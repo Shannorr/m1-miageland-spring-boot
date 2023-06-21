@@ -1,5 +1,6 @@
 package fr.miage.toulouse.m1.miageland.tpmiageland.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -52,7 +53,6 @@ public class Personne implements UserDetails {
     /** role de la personne au sein du parc */
     @Enumerated(EnumType.STRING)
     private Role role;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

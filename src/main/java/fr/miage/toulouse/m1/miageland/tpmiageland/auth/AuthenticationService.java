@@ -2,6 +2,7 @@ package fr.miage.toulouse.m1.miageland.tpmiageland.auth;
 
 
 import fr.miage.toulouse.m1.miageland.tpmiageland.config.JwtService;
+import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Attraction;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Personne;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Role;
 import fr.miage.toulouse.m1.miageland.tpmiageland.repositories.PersonneRepository;
@@ -69,19 +70,9 @@ public class AuthenticationService {
         }
         // sinon, on passe à false
         repository.deleteById(idEmploye);
-
     }
 
-    private void saveUserToken(Personne user, String jwtToken) {
-    }
-
-    private void revokeAllUserTokens(Personne user) {
-    }
-
-    public void refreshToken(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) throws IOException {
-
+    public Iterable<Personne> recupererPersonne() {
+        return repository.findAll();
     }
 }

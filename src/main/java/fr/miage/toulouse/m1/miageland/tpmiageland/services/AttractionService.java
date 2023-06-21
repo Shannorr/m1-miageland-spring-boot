@@ -1,10 +1,12 @@
 package fr.miage.toulouse.m1.miageland.tpmiageland.services;
 
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Attraction;
+import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Billet;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Parc;
 import fr.miage.toulouse.m1.miageland.tpmiageland.repositories.AttractionRepository;
 import fr.miage.toulouse.m1.miageland.tpmiageland.repositories.ParcRepository;
 import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.AttractionInexistante;
+import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.BilletInexistant;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

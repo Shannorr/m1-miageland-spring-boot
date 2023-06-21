@@ -117,4 +117,14 @@ public class ParcService {
         return parcRepository.save(monParc);
     }
 
+    public void supprimerParc (Long id) throws ParcInexistant  {
+        // on cherche le parc
+        final Optional<Parc> optionalParc = parcRepository.findById(id);
+        // s'il n'existe pas on lance une exception
+        if(optionalParc.isEmpty()) {
+            throw new ParcInexistant("Le parc d'id " + id + " n'existe pas.");
+        }
+        parcRepository.deleteById(id);
+    }
+
 }
