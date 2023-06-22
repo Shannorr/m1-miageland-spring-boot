@@ -146,12 +146,20 @@ public class BilletService {
             throw new BilletDejaUtilise("Billet pris");
         }
 
-        billet.setPersonne(optionalPersonne.get());
+        Parc p = billet.getParc();
+        Integer nbBillet = p.getBillets().size();
+        if(p.getJaugeP() != null && p.getJaugeP() < nbBillet ){
+            billet.setPersonne(optionalPersonne.get());
 
 
-        Long date = new Date().getTime();
-        billet.setDateAchat(date);
-        return billetRepository.save(billet);
+            Long date = new Date().getTime();
+            billet.setDateAchat(date);
+            return billetRepository.save(billet);
+        } else {
+            throw new JaugePleine("La jauge est pleine");
+        }
+
+
 
     }
 

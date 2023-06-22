@@ -1,6 +1,7 @@
 package fr.miage.toulouse.m1.miageland.tpmiageland.rest;
 
 import fr.miage.toulouse.m1.miageland.tpmiageland.export.ErrorExport;
+import fr.miage.toulouse.m1.miageland.tpmiageland.services.JaugePleine;
 import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.*;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -64,6 +65,11 @@ public class gestionException {
 
     @ExceptionHandler(PersonneInnexistante.class)
     public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, PersonneInnexistante exception) {
+        return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(JaugePleine.class)
+    public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, JaugePleine exception) {
         return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
     }
 }
