@@ -1,6 +1,5 @@
 package fr.miage.toulouse.m1.miageland.tpmiageland.services;
 
-import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Attraction;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Billet;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Parc;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Personne;
@@ -10,13 +9,12 @@ import fr.miage.toulouse.m1.miageland.tpmiageland.repositories.ParcRepository;
 import fr.miage.toulouse.m1.miageland.tpmiageland.repositories.PersonneRepository;
 import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.*;
 import org.springframework.stereotype.Service;
-import java.text.DateFormat;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class BilletService {
@@ -113,6 +111,26 @@ public class BilletService {
         final Iterable<Billet> optionalBillet = billetRepository.findBilletsByPersonne(pers);
         //on renvoie les infos
         return optionalBillet;
+    }
+
+    public ResponseClass recupererBilletReserver() {
+        // on cherche les billets
+        final Iterable<Billet> optionalBillet = billetRepository.findAll();
+        List<Billet> billets = new ArrayList<>();
+        optionalBillet.forEach(billet -> {
+            if (billet.getPersonne() != null) {
+                billets.add(billet);
+            }
+        });
+
+        double count = billets.stream()
+                .mapToDouble(Billet::getPrix)
+                .sum();
+
+        //on renvoie les infos
+        return new ResponseClass("Billet reservé, prix tot. : " + count,
+             billets
+        );
     }
 
     public Billet reserverBillet(Long idBillet, Long idPers) throws PersonneInnexistante, BilletDejaUtilise {

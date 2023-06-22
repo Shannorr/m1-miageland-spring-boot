@@ -2,6 +2,7 @@ package fr.miage.toulouse.m1.miageland.tpmiageland.rest;
 
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Billet;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Parc;
+import fr.miage.toulouse.m1.miageland.tpmiageland.export.ResponseClass;
 import fr.miage.toulouse.m1.miageland.tpmiageland.services.BilletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,14 @@ public class RestBillet {
         return this.billetService.recupererBillet(idBillet);
     }
 
-    @GetMapping//pour dire je veux récupérer tous les parcs
+    @GetMapping//pour dire je veux récupérer tous les billets
     public Iterable<Billet> getBillets(){
         return this.billetService.recupererBillets();
+    }
+
+    @GetMapping("/reserver")//pour dire je veux récupérer tous les parcs
+    public ResponseClass getBilletsRes(){
+        return this.billetService.recupererBilletReserver();
     }
 
 }
