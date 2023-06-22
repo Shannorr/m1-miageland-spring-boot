@@ -31,14 +31,29 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**")
+                .requestMatchers("/api/v1/auth/**",
+                        "/api/attractions/ouverte",
+                        "/api/attractions/ferme")
                 .permitAll()
 
                 .requestMatchers("/api/v1/demo-controller").hasAnyAuthority("USER", "GERANT")
 
                 // Autoriser que par le gerant
-                .requestMatchers(POST, "/api/v1/employes").hasAuthority( "GERANT")
-                .requestMatchers(DELETE, "/api/v1/employes/**").hasAuthority( "GERANT")
+                .requestMatchers(POST, "/api/v1/gerant/employes").hasAuthority( "GERANT")
+                .requestMatchers(DELETE, "/api/v1/gerant/employes/**").hasAuthority( "GERANT")
+                .requestMatchers( "/api/parcs/**").hasAuthority( "GERANT")
+                .requestMatchers( "/api/attractions/**").hasAuthority( "GERANT")
+                .requestMatchers(DELETE,"/api/billets/**").hasAuthority( "GERANT")
+                .requestMatchers(POST,"/api/billets/**").hasAuthority( "GERANT")
+
+                // VISITEUR ET GERANT
+                .requestMatchers(DELETE, "/api/visiteur/**").hasAnyAuthority("VISITEUR", "GERANT")
+
+                // VISITEUR ET GERANT ET EMPLOYE
+                .requestMatchers(GET, "/api/billets/**").hasAnyAuthority("VISITEUR", "GERANT", "EMPLOYE")
+
+                // EMPLOYE
+                .requestMatchers(GET, "/api/employes/**").hasAnyAuthority("GERANT", "EMPLOYE")
 
                 .anyRequest()
                 .authenticated()
