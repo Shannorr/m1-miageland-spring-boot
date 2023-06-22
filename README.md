@@ -15,6 +15,9 @@ docker pull phpmyadmin/phpmyadmin:latest
 docker run --name my-own-phpmyadmin -d --link monsql:db -p 8081:80 phpmyadmin/phpmyadmin
 ```
 
+### Ajouter le gérant 
+Décommenter dans le fichier TpMiagelandApplication
+
 ### Plan de travail sur Git
 Voir la branche sur laquelle je suis :
 ```
