@@ -4,15 +4,17 @@ import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Attraction;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Billet;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Parc;
 import fr.miage.toulouse.m1.miageland.tpmiageland.entities.Personne;
+import fr.miage.toulouse.m1.miageland.tpmiageland.export.ResponseClass;
 import fr.miage.toulouse.m1.miageland.tpmiageland.repositories.BilletRepository;
 import fr.miage.toulouse.m1.miageland.tpmiageland.repositories.ParcRepository;
 import fr.miage.toulouse.m1.miageland.tpmiageland.repositories.PersonneRepository;
-import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.BilletDejaUtilise;
-import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.BilletInexistant;
-import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.ParcInexistant;
-import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.PersonneInnexistante;
+import fr.miage.toulouse.m1.miageland.tpmiageland.utilities.*;
 import org.springframework.stereotype.Service;
+import java.text.DateFormat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -127,20 +129,48 @@ public class BilletService {
         }
 
         billet.setPersonne(optionalPersonne.get());
+
+
+        Long date = new Date().getTime();
+        billet.setDateAchat(date);
         return billetRepository.save(billet);
 
     }
 
-    public Billet annulerReservation(Long idBillet, Long idPers) throws PersonneInnexistante {
-        Billet billet = this.recupererBillet(idBillet);
+    public ResponseClass annulerReservation(Long idBillet, Long idPers) throws PersonneInnexistante, BilletInexistant, BilletNonAssocie {
+        // on cherche le billet
+        final Optional<Billet> optionalBillet = billetRepository.findById(idBillet);
+        // s'il n'existe pas on lance une exception
+        if(optionalBillet.isEmpty()) {
+            throw new BilletInexistant("Le billet d'id " + idBillet + " n'existe pas.");
+        }
+        // sinon, on renvoie les infos
+        Billet billet = optionalBillet.get();
+
+        if (billet.getPersonne() == null) {
+            throw new BilletNonAssocie("Le billet n'est associé à personne");
+        }
 
         // on cherche la personne
         final Optional<Personne> optionalPersonne = personneRepository.findById(idPers);
         if (optionalPersonne.isEmpty()) {
             throw new PersonneInnexistante("Cette personne n'hexiste pas ");
         }
+
+        Long dateAnnulation =  new Date().getTime();
+        Long dateAchat =billet.getDateAchat();
+        int sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000; // 7 jours en millisecondes
+
+        if (dateAnnulation - dateAchat >= sevenDaysInMillis) {
+            // Plus de 7 jours se sont écoulés
+            // Effectuez les actions nécessaires ici
+            throw new BilletPerime("Délai de 7 jours dépassées");
+        }
+
         billet.setPersonne(null);
-        return billetRepository.save(billet);
+        billet.setDateVisite(null);
+        billet.setDateAchat(null);
+        return new ResponseClass("Billet annulé vous serez rembousé de : " + billet.getPrix(),  billetRepository.save(billet));
     }
 
 }

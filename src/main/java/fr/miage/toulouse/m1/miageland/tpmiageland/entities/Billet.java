@@ -21,7 +21,10 @@ public class Billet {
     private Long numBillet;
 
     /*Date de la visite*/
-    private String dateVisite;
+    private Long dateVisite;
+
+    /*Date de l'achat */
+    private Long dateAchat;
 
     /*Prix du billet*/
     private double prix;

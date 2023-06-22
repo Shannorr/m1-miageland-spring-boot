@@ -43,10 +43,14 @@ public class SecurityConfig {
                 .requestMatchers(DELETE, "/api/v1/gerant/employes/**").hasAuthority( "GERANT")
                 .requestMatchers( "/api/parcs/**").hasAuthority( "GERANT")
                 .requestMatchers( "/api/attractions/**").hasAuthority( "GERANT")
-                .requestMatchers("/api/billets/**").hasAuthority( "GERANT")
+                .requestMatchers(DELETE,"/api/billets/**").hasAuthority( "GERANT")
+                .requestMatchers(POST,"/api/billets/**").hasAuthority( "GERANT")
 
                 // VISITEUR ET GERANT
                 .requestMatchers(DELETE, "/api/visiteur/**").hasAnyAuthority("VISITEUR", "GERANT")
+
+                // VISITEUR ET GERANT ET EMPLOYE
+                .requestMatchers(GET, "/api/billets/**").hasAnyAuthority("VISITEUR", "GERANT", "EMPLOYE")
 
                 // EMPLOYE
                 .requestMatchers(GET, "/api/employes/**").hasAnyAuthority("GERANT", "EMPLOYE")

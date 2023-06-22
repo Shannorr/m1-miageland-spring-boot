@@ -52,4 +52,18 @@ public class gestionException {
         return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(BilletPerime.class)
+    public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, BilletPerime exception) {
+        return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BilletNonAssocie.class)
+    public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, BilletNonAssocie exception) {
+        return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PersonneInnexistante.class)
+    public ResponseEntity<ErrorExport> gereAutreException(HttpServletRequest request, PersonneInnexistante exception) {
+        return new ResponseEntity<ErrorExport>(new ErrorExport(exception.getMessage(), exception.getClass().getName()), HttpStatus.NOT_FOUND);
+    }
 }

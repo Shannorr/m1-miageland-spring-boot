@@ -42,7 +42,7 @@ public class EmployeService {
         }
 
         Billet b = optionalBillet.get();
-        b.setDateVisite(new Date(System.currentTimeMillis()).toString());
+        b.setDateVisite(new Date().getTime());
         b.setEtat(true);
 
         // sinon, on renvoie les infos
